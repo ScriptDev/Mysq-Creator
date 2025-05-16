@@ -1,21 +1,15 @@
 document.addEventListener('DOMContentLoaded', async function() {
-    // Nome de usuário fixo - apenas a senha está protegida
+    // Nome de usuário fixo
     const validUsername = 'admin';
-    let validPasswordHash = '';
+    let validPasswordHash = '21232f297a57a5a743894a0e4a801fc3'; 
     
-    // Carregar o hash da senha de um arquivo separado
-    try {
-        const response = await fetch('credentials.json');
-        if (response.ok) {
-            const data = await response.json();
-            validPasswordHash = data.hash;
-        } else {
-            console.error('Erro ao carregar credenciais');
-        }
-    } catch (error) {
-        console.error('Erro ao carregar credenciais:', error);
+    const storedHash = localStorage.getItem('passwordHash');
+    if (storedHash) {
+        validPasswordHash = storedHash;
+    } else {
+        // Salvar o hash padrão no localStorage para uso futuro
+        localStorage.setItem('passwordHash', validPasswordHash);
     }
-    
     // Verificar se o usuário já está autenticado
     checkAuthentication();
     
