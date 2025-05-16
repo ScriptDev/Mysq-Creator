@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Dados MySQL</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Gerador de Dados para MySQL</h1>
+            <div class="user-controls">
+                <button id="logoutBtn" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Sair</button>
+            </div>
+            <p>Crie dados fictícios para popular suas tabelas MySQL de forma rápida e eficiente</p>
+        </header>
+
+        <main>
+            <div class="card">
+                <h2>Configuração do Banco de Dados</h2>
+                <div class="form-group">
+                    <label for="dbName">Nome do Banco de Dados:</label>
+                    <input type="text" id="dbName" placeholder="Ex: jogo">
+                </div>
+                <div class="form-group">
+                    <label for="tableName">Nome da Tabela:</label>
+                    <input type="text" id="tableName" placeholder="Ex: usuarios">
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Colunas da Tabela</h2>
+                <div id="columns-container">
+                    <!-- Template da coluna será adicionado pelo JS -->
+                </div>
+                <button id="addColumn" class="btn-add"><i class="fas fa-plus"></i> Adicionar Coluna</button>
+            </div>
+
+            <div class="card">
+                <h2>Opções de Geração</h2>
+                <div class="form-group">
+                    <label for="sqlOperation">Tipo de Operação:</label>
+                    <select id="sqlOperation">
+                        <option value="insert">Inserir Dados (INSERT)</option>
+                        <option value="update">Atualizar Dados (UPDATE)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="totalRecords">Quantidade de Registros:</label>
+                    <input type="number" id="totalRecords" min="1" max="100000" value="10">
+                </div>
+                <div id="updateOptions" class="form-group" style="display: none;">
+                    <label for="idColumnForUpdate">Coluna de ID para UPDATE:</label>
+                    <select id="idColumnForUpdate">
+                        <!-- Preenchido dinamicamente com as colunas definidas -->
+                        <option value="">Selecione uma coluna de ID</option>
+                    </select>
+                    <div class="update-range">
+                        <label for="startId">ID Inicial:</label>
+                        <input type="number" id="startId" value="1" min="1">
+                        <label for="endId">ID Final:</label>
+                        <input type="number" id="endId" value="10" min="1">
+                    </div>
+                    
+                    <div class="update-columns-section">
+                        <h3>Selecione as colunas para atualizar:</h3>
+                        <select id="updateColumnsSelect" multiple size="5" class="multi-select">
+                            <!-- Opções serão preenchidas dinamicamente -->
+                        </select>
+                        <div class="select-help">Segure CTRL para selecionar múltiplas colunas</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="generate" class="btn-primary"><i class="fas fa-magic"></i> Gerar SQL</button>
+                <div class="output-options">
+                    <button id="downloadTxt" class="btn-secondary" disabled><i class="fas fa-file-code"></i> Baixar SQL</button>
+                    <button id="downloadDoc" class="btn-secondary" disabled><i class="fas fa-file-word"></i> Baixar DOC</button>
+                    <button id="copyToClipboard" class="btn-secondary" disabled><i class="fas fa-copy"></i> Copiar SQL</button>
+                </div>
+            </div>
+
+            <div class="card output-card">
+                <h2>Código SQL Gerado</h2>
+                <div class="output-container">
+                    <pre id="output"></pre>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Desenvolvido com <i class="fas fa-heart"></i> para simplificar o trabalho com bancos de dados</p>
+        </footer>
+
+        <div id="notification-container"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
